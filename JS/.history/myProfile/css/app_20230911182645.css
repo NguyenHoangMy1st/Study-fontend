@@ -1,0 +1,251 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/* html{
+    font-size: 62.5%;
+} */
+a{
+    text-decoration: none;
+}
+img{
+    display: block;
+    max-width: 100%;
+}
+
+
+body {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  background-image: url(../name.jpg);
+
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.container {
+  width: 100%;
+  background-color: #aae1f6;
+  border: 1px solid #ddd;
+  padding: 20px 100px;
+  display: flex;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin: 50 auto;
+  border: 5px solid #4CAF50;
+}
+
+.container span {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+.info {
+  max-width: 100%;
+  padding: 20px 70px;
+  display: flex;
+  background-color: #aae1f6;
+}
+
+
+.aboutMe {
+  padding: 20px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  width: 200px;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #fa9797;
+}
+.aboutMe:hover{
+  background-color: #c6cec7;
+  color: red;
+}
+.yourImage {
+  padding: 20px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  width: 200px;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #fa9797;
+  border-left: 0;
+}
+.yourImage:hover{
+  background-color: #c6cec7;
+  color: red;
+}
+.post {
+  padding: 20px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  width: 200px;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #fa9797;
+  border-left: 0;
+}
+.post:hover{
+  background-color: #c6cec7;
+  color: red;
+}
+.showAboutMe{
+  max-width: 100%;
+  padding: 50px 50px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  border-left: 0;
+  margin :20px 70px 0 70px;
+  opacity: 0;
+  visibility: hidden;
+  scale: 0;
+  display: none;
+}
+.is-showAboutMe{
+  opacity: 1;
+  visibility:visible;
+  scale: 1;
+  display: block;
+}
+.showImage{
+  padding: 50px 50px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  max-width: 100%;
+  border-left: 0;
+  margin :20px 70px 0 70px;
+  opacity: 0;
+  visibility: hidden;
+  scale: 0;
+  display: none;
+}
+.is-showImage{
+  opacity: 1;
+  visibility:visible;
+  scale:1;
+  display:grid ;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px 40px;
+}
+.is-showImage img{
+  border-radius: 10px;
+  height:500px;
+  width: 500px;
+}
+
+
+.end {
+  background-color: #aae1f6;
+  color: black;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.end h2{
+  margin-left: 50px;
+  font-size: 15px;
+}
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lightbox-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+}
+.lightbox-content img {
+  max-height: 700px;
+  width: 90%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.lightbox-content i {
+  color: white;
+  font-size: 60px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.form {
+  margin: 50px auto;
+  border: #333 solid 2px;
+  width: 500px;
+  border-radius: px;
+  background-color: rgba(255, 255, 255, 0.43);
+  justify-content: center;
+  align-items: center;
+  box-shadow: #1E90FF 0px 7px 29px 0px;
+}
+
+.title {
+  
+  display: block;
+  width: 100%;
+  padding: 30px 200px 0;
+  text-align: center;
+  /* justify-content: center;
+  align-items: center; */
+  /* padding: 20px auto 0; */
+  font-size: 30px;
+  color: #1E90FF;
+}
+
+.input {
+  padding: 10px;
+  border: #63B8FF solid 2px;
+  border-radius: 5px;
+  background-color: #d7e7ef;
+  color: #000000;
+  font-size: 15px;
+  width: 300px;
+  margin: 30px auto 20px;
+  display: block;
+}
+
+.submit {
+  padding: 20px;
+  background-color: #5bc6ee;
+  margin: 30px auto;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  border: 2px solid;
+  cursor: pointer;
+  width: 150px;
+  font-family: "Poppins", sans-serif;
+  display: block;
+}
+
+.password {
+  position: relative;
+}
+.toggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 120px;
+  cursor: pointer;
+}
