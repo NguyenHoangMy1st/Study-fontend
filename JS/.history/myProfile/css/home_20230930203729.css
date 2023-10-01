@@ -1,0 +1,28 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/* html{
+    font-size: 62.5%;
+} */
+a{
+    text-decoration: none;
+}
+img{
+    display: block;
+    max-width: 100%;
+}
+body {
+  max-width: 100%;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: url(../background5.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
