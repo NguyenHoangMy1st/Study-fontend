@@ -1,2 +1,0 @@
-# Study-fontend
-study-fontend
