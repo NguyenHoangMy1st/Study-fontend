@@ -8,7 +8,7 @@ import "./style.scss";
 export default function ProfileCard() {
   const [profiles, setProfiles] = useState([]);
   const [fullName, setfullName] = useState("");
-
+  const [streetAddress, setstreetAddress] = useState("");
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -134,7 +134,7 @@ export default function ProfileCard() {
                 <label className="profile-show-label">Địa chỉ</label>
                 <input
                   type="text"
-                  defaultValue={profiles?.addresses}
+                  defaultValue={profiles?.profiles.streetAddress}
                   // onChange={handleAddress}
                   className="profile-show-input"
                 ></input>

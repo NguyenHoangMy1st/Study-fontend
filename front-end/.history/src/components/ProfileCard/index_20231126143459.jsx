@@ -134,7 +134,7 @@ export default function ProfileCard() {
                 <label className="profile-show-label">Địa chỉ</label>
                 <input
                   type="text"
-                  defaultValue={profiles?.addresses}
+                  defaultValue={profiles.addresses}
                   // onChange={handleAddress}
                   className="profile-show-input"
                 ></input>

@@ -10,7 +10,6 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("user");
   const naviagte = useNavigate();
 
   const validatePassword = (password) => {
@@ -48,13 +47,11 @@ export default function RegisterPage() {
         firstName,
         phone,
         email,
-        role,
       };
       const response = await axios.post(
         "https://pbl6-shoes-shop-production-810a.up.railway.app/auth/signup",
         formData
       );
-      console.log(formData);
       if (response) {
         toast.success("Đăng ký thành công");
         localStorage.setItem("user", JSON.stringify(formData));
@@ -82,8 +79,7 @@ export default function RegisterPage() {
                 name="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                required
-                autoComplete="off"
+                requiredautoComplete="off"
               />
               <label>Email</label>
             </div>
@@ -93,7 +89,6 @@ export default function RegisterPage() {
                 id="password"
                 name="password"
                 value={password}
-                autoComplete="off"
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
@@ -105,7 +100,6 @@ export default function RegisterPage() {
                 id="lastName"
                 name="lastName"
                 value={lastName}
-                autoComplete="off"
                 onChange={(event) => setLastName(event.target.value)}
                 required
               />
@@ -117,7 +111,6 @@ export default function RegisterPage() {
                 id="firstName"
                 name="firstName"
                 value={firstName}
-                autoComplete="off"
                 onChange={(event) => setFirstName(event.target.value)}
                 required
               />
@@ -130,7 +123,6 @@ export default function RegisterPage() {
                 id="phone"
                 name="phone"
                 value={phone}
-                autoComplete="off"
                 onChange={(event) => setPhone(event.target.value)}
                 required
               />
@@ -138,12 +130,9 @@ export default function RegisterPage() {
             </div>
 
             <div className="input-register">
-              <select
-                className="permission"
-                onChange={(event) => setRole(event.target.value)}
-              >
-                <option value="user">Purchase</option>
-                <option value="admin">Sell</option>
+              <select className="permission">
+                <option value="0">Sell</option>
+                <option value="1">Purchase</option>
               </select>
             </div>
             <button
@@ -157,7 +146,7 @@ export default function RegisterPage() {
             <div className="login-register">
               <p>
                 If you already have an Account?
-                <Link to="/#" className="login-link">
+                <Link to="/login" className="login-link">
                   {" "}
                   Login
                 </Link>

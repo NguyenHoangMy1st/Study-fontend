@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 export default function CartList(onDelete) {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  console.log(products);
+  // console.log(products);
 
   // API cart
   useEffect(() => {
@@ -129,7 +129,7 @@ export default function CartList(onDelete) {
           <button className="payment-detail-btndelete">Delete</button>
           <div className="payment-content">
             <label>The Total Amount</label>
-            <label>${products?.totalPrice}</label>
+            <label>${totalPrice}</label>
           </div>
         </div>
         <div className="payment-btn">

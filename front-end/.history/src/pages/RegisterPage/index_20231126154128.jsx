@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("admin");
   const naviagte = useNavigate();
 
   const validatePassword = (password) => {
@@ -142,8 +142,8 @@ export default function RegisterPage() {
                 className="permission"
                 onChange={(event) => setRole(event.target.value)}
               >
-                <option value="user">Purchase</option>
                 <option value="admin">Sell</option>
+                <option value="user">Purchase</option>
               </select>
             </div>
             <button

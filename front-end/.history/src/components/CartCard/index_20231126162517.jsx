@@ -6,13 +6,12 @@ import "./style.scss";
 export default function CartCard({
   name,
   product,
-  // onIncreaseQuantity,
-  // onDeCreaseQuantity,
+  quantity,
+  onIncreaseQuantity,
+  onDeCreaseQuantity,
   onDelete,
 }) {
-  // console.log(product);
-  const [quantityDefault, setQuantityDefault] = useState(product?.quantity);
-  // console.log(quantityDefault);
+  const [quantityDefault, setQuantityDefault] = useState(quantity);
   // const hexColorCode = product?.product.color;
   // const colorName = chroma(hexColorCode).name();
   // console.log(product);
@@ -23,12 +22,12 @@ export default function CartCard({
   const handleDeCreaseQuantity = () => {
     if (quantityDefault > 1) {
       setQuantityDefault(quantityDefault - 1);
-      // onDeCreaseQuantity();
+      onDeCreaseQuantity();
     }
   };
   const handleIncreaseQuantity = () => {
     setQuantityDefault(quantityDefault + 1);
-    // onIncreaseQuantity();
+    onIncreaseQuantity();
   };
   const handleDelete = () => {
     onDelete();
@@ -94,7 +93,7 @@ export default function CartCard({
         </div>
         <div className="cartList-money">
           <span className="font-15">
-            ${quantityDefault * Number(product.discountedPrice)}
+            ${product.quantity * Number(product.discountedPrice)}
           </span>
         </div>
         <div className="cartList-operation">

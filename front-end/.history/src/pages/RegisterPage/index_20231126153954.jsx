@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("");
   const naviagte = useNavigate();
 
   const validatePassword = (password) => {
@@ -54,7 +54,6 @@ export default function RegisterPage() {
         "https://pbl6-shoes-shop-production-810a.up.railway.app/auth/signup",
         formData
       );
-      console.log(formData);
       if (response) {
         toast.success("Đăng ký thành công");
         localStorage.setItem("user", JSON.stringify(formData));
@@ -142,8 +141,8 @@ export default function RegisterPage() {
                 className="permission"
                 onChange={(event) => setRole(event.target.value)}
               >
-                <option value="user">Purchase</option>
                 <option value="admin">Sell</option>
+                <option value="user">Purchase</option>
               </select>
             </div>
             <button

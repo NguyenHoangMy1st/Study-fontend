@@ -21,7 +21,7 @@ export default function AboutPage({ quantity = 1 }) {
   const handleAddtocart = async (productId) => {
     const formdata = {
       productId,
-      quantity: quantityDefault,
+      quantity: selectedQuantity,
       size: selectedSize,
       color: selectedColor,
     };
@@ -147,6 +147,7 @@ export default function AboutPage({ quantity = 1 }) {
                     type="text"
                     className="about-quantity-input"
                     value={quantityDefault}
+                    defaultValue={quantityDefault}
                     onChange={(e) => setQuantityDefault(e.target.value)}
                   />
                   <Button text="+" onClick={handleIncreaseQuantity}></Button>

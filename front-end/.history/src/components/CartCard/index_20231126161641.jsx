@@ -6,15 +6,14 @@ import "./style.scss";
 export default function CartCard({
   name,
   product,
-  // onIncreaseQuantity,
-  // onDeCreaseQuantity,
+  quantity,
+  onIncreaseQuantity,
+  onDeCreaseQuantity,
   onDelete,
 }) {
-  // console.log(product);
-  const [quantityDefault, setQuantityDefault] = useState(product?.quantity);
-  // console.log(quantityDefault);
-  // const hexColorCode = product?.product.color;
-  // const colorName = chroma(hexColorCode).name();
+  const [quantityDefault, setQuantityDefault] = useState(quantity);
+  const hexColorCode = product?.product.color;
+  const colorName = chroma(hexColorCode).name();
   // console.log(product);
   // useEffect(() => {
   //   onIncreaseQuantity(price, quantity);
@@ -23,12 +22,12 @@ export default function CartCard({
   const handleDeCreaseQuantity = () => {
     if (quantityDefault > 1) {
       setQuantityDefault(quantityDefault - 1);
-      // onDeCreaseQuantity();
+      onDeCreaseQuantity();
     }
   };
   const handleIncreaseQuantity = () => {
     setQuantityDefault(quantityDefault + 1);
-    // onIncreaseQuantity();
+    onIncreaseQuantity();
   };
   const handleDelete = () => {
     onDelete();
@@ -63,7 +62,7 @@ export default function CartCard({
               {product?.product.brand}
             </Link>
             <div className="cartList-content-color">
-              <span className="cartList-content-color-p"></span>
+              <span className="cartList-content-color-p">{colorName}</span>
             </div>
           </div>
         </div>
@@ -83,7 +82,7 @@ export default function CartCard({
           <input
             type="number"
             className="cartList-input"
-            value={quantityDefault}
+            value={product?.quantity}
           />
           <button
             className="cartList-increase"
@@ -94,7 +93,7 @@ export default function CartCard({
         </div>
         <div className="cartList-money">
           <span className="font-15">
-            ${quantityDefault * Number(product.discountedPrice)}
+            ${product.quantity * Number(product.discountedPrice)}
           </span>
         </div>
         <div className="cartList-operation">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "./style.scss";
@@ -10,34 +10,63 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("user");
-  const naviagte = useNavigate();
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [passwordValidation, setPasswordValidation] = useState({
+    length: false,
+    upper: false,
+    number: false,
+    special: false,
+  });
+  const navigate = useNavigate();
 
-  const validatePassword = (password) => {
-    // Biểu thức chính quy kiểm tra mật khẩu
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-    return passwordRegex.test(password);
-  };
-  const validateEmail = (email) => {
-    // Biểu thức chính quy kiểm tra định dạng email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  useEffect(() => {
+    const handleInput = (e) => {
+      const value = e.target.value;
+
+      if (!value) {
+        setPasswordValidation({
+          length: false,
+          upper: false,
+          number: false,
+          special: false,
+        });
+      } else {
+        setPasswordValidation({
+          length: value.length >= 8,
+          upper: /[A-Z]/.test(value),
+          number: /[0-9]/.test(value),
+          special: /[$@%^&*()}{[\]}!]/.test(value),
+        });
+        console.log(1);
+      }
+    };
+
+    const passwordInput = document.querySelector("#password");
+    if (passwordInput) {
+      passwordInput.addEventListener("input", handleInput);
+    }
+
+    return () => {
+      if (passwordInput) {
+        passwordInput.removeEventListener("input", handleInput);
+      }
+    };
+  }, [password]);
+
   const handleSubmit = async () => {
     if (!password || !lastName || !firstName || !phone || !email) {
       toast.error("Please fill in all required fields");
       return;
     }
-    // Kiểm tra định dạng email
-    if (!validateEmail(email)) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    // Kiểm tra mật khẩu
-    if (!validatePassword(password)) {
-      toast.error(
-        "Password must contain at least 8 characters, one uppercase letter, and one digit"
-      );
+
+    const isPasswordValid =
+      passwordValidation.length &&
+      passwordValidation.upper &&
+      passwordValidation.number &&
+      passwordValidation.special;
+
+    if (!isPasswordValid) {
+      toast.error("Password does not meet the requirements");
       return;
     }
 
@@ -48,19 +77,17 @@ export default function RegisterPage() {
         firstName,
         phone,
         email,
-        role,
       };
       const response = await axios.post(
         "https://pbl6-shoes-shop-production-810a.up.railway.app/auth/signup",
         formData
       );
-      console.log(formData);
       if (response) {
         toast.success("Đăng ký thành công");
         localStorage.setItem("user", JSON.stringify(formData));
 
         setTimeout(() => {
-          naviagte("/login");
+          navigate("/login");
         }, 2000);
       }
     } catch (error) {
@@ -68,6 +95,13 @@ export default function RegisterPage() {
     }
   };
 
+  const handleInput123 = (event) => {
+    console.log(password);
+    console.log(123123);
+    console.log(event);
+    console.log(event.target);
+    setPassword(event.target.value);
+  };
   return (
     <div className="register-control body-register ">
       <ToastContainer />
@@ -83,21 +117,8 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required
-                autoComplete="off"
               />
               <label>Email</label>
-            </div>
-            <div className="input-register">
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                autoComplete="off"
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
-              <label>Password</label>
             </div>
             <div className="input-register">
               <input
@@ -105,7 +126,6 @@ export default function RegisterPage() {
                 id="lastName"
                 name="lastName"
                 value={lastName}
-                autoComplete="off"
                 onChange={(event) => setLastName(event.target.value)}
                 required
               />
@@ -117,33 +137,73 @@ export default function RegisterPage() {
                 id="firstName"
                 name="firstName"
                 value={firstName}
-                autoComplete="off"
                 onChange={(event) => setFirstName(event.target.value)}
                 required
               />
               <label>First name</label>
             </div>
-
             <div className="input-register">
               <input
                 type="number"
                 id="phone"
                 name="phone"
                 value={phone}
-                autoComplete="off"
                 onChange={(event) => setPhone(event.target.value)}
                 required
               />
               <label>Phone Number</label>
             </div>
-
             <div className="input-register">
-              <select
-                className="permission"
-                onChange={(event) => setRole(event.target.value)}
+              <input
+                type="text"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(event) => handleInput123(event)}
+                onFocus={() => setIsPasswordFocused(true)}
+                onBlur={() => setIsPasswordFocused(false)}
+                required
+              />
+              <label>Password1111</label>
+            </div>
+            <div
+              className={`check-items ${
+                isPasswordFocused ? "visible" : "hidden"
+              }`}
+            >
+              <div
+                className={`check-item check-length ${
+                  passwordValidation.length ? "active" : "unactive"
+                }`}
               >
-                <option value="user">Purchase</option>
-                <option value="admin">Sell</option>
+                At least 8 characters
+              </div>
+              <div
+                className={`check-item check-upper ${
+                  passwordValidation.upper ? "active" : "unactive"
+                }`}
+              >
+                At least one uppercase letter
+              </div>
+              <div
+                className={`check-item check-number ${
+                  passwordValidation.number ? "active" : "unactive"
+                }`}
+              >
+                At least one number
+              </div>
+              <div
+                className={`check-item check-special ${
+                  passwordValidation.special ? "active" : "unactive"
+                }`}
+              >
+                At least one special character
+              </div>
+            </div>
+            <div className="input-register">
+              <select className="permission">
+                <option value="0">Sell</option>
+                <option value="1">Purchase</option>
               </select>
             </div>
             <button
@@ -157,7 +217,7 @@ export default function RegisterPage() {
             <div className="login-register">
               <p>
                 If you already have an Account?
-                <Link to="/#" className="login-link">
+                <Link to="/login" className="login-link">
                   {" "}
                   Login
                 </Link>

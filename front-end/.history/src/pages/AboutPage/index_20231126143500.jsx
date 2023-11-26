@@ -14,14 +14,13 @@ export default function AboutPage({ quantity = 1 }) {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState("");
-  const [quantityDefault, setQuantityDefault] = useState(quantity);
   let id = useParams();
   // const selectedId = searchParams.get("selectedId");
 
   const handleAddtocart = async (productId) => {
     const formdata = {
       productId,
-      quantity: quantityDefault,
+      quantity: selectedQuantity,
       size: selectedSize,
       color: selectedColor,
     };
@@ -56,6 +55,7 @@ export default function AboutPage({ quantity = 1 }) {
     }, 2000);
   };
 
+  const [quantityDefault, setQuantityDefault] = useState(quantity);
   const handleDeCreaseQuantity = () => {
     if (quantityDefault > 1) {
       setQuantityDefault(quantityDefault - 1);
@@ -146,8 +146,9 @@ export default function AboutPage({ quantity = 1 }) {
                   <input
                     type="text"
                     className="about-quantity-input"
-                    value={quantityDefault}
-                    onChange={(e) => setQuantityDefault(e.target.value)}
+                    value={selectedQuantity}
+                    defaultValue={quantityDefault}
+                    onChange={(e) => setSelectedQuantity(e.target.value)}
                   />
                   <Button text="+" onClick={handleIncreaseQuantity}></Button>
                 </div>

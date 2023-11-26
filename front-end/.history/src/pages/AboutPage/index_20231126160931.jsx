@@ -21,7 +21,7 @@ export default function AboutPage({ quantity = 1 }) {
   const handleAddtocart = async (productId) => {
     const formdata = {
       productId,
-      quantity: quantityDefault,
+      quantity: String(quantityDefault),
       size: selectedSize,
       color: selectedColor,
     };

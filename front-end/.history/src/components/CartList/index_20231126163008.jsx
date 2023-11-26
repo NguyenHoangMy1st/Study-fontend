@@ -30,7 +30,7 @@ export default function CartList(onDelete) {
   const handleIncreaseQuantity = (productId) => {
     // Tìm sản phẩm cần tăng số lượng
     console.log(products);
-    const updatedProducts = products?.product?.map((product) =>
+    const updatedProducts = products?.map((product) =>
       product.id === productId
         ? { ...product, quantity: product.quantity + 1 }
         : product
@@ -129,7 +129,7 @@ export default function CartList(onDelete) {
           <button className="payment-detail-btndelete">Delete</button>
           <div className="payment-content">
             <label>The Total Amount</label>
-            <label>${products?.totalPrice}</label>
+            <label>${totalPrice}</label>
           </div>
         </div>
         <div className="payment-btn">

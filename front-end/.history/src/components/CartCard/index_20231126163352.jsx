@@ -10,9 +10,9 @@ export default function CartCard({
   // onDeCreaseQuantity,
   onDelete,
 }) {
-  // console.log(product);
+  console.log(product);
   const [quantityDefault, setQuantityDefault] = useState(product?.quantity);
-  // console.log(quantityDefault);
+  console.log(quantityDefault);
   // const hexColorCode = product?.product.color;
   // const colorName = chroma(hexColorCode).name();
   // console.log(product);
