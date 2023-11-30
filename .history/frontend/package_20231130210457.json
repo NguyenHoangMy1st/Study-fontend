@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "version-number"
+    // other devDependencies...
   },
   "scripts": {
     "start": "react-scripts start",

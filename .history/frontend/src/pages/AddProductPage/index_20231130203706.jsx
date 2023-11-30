@@ -18,7 +18,7 @@ export default function AddProductPage() {
     useState("180000");
   const [discountPersentProduct, setdiscountPersentProduct] = useState("10");
   const [imageProduct, setimageProduct] = useState(
-    "https://raw.githubusercontent.com/NguyenHoangMy1st/Study-fontend/main/frontend/src/images/shoes7.png"
+    "https://raw.githubusercontent.com/NguyenHoangMy1st/Study-fontend/main/front-end/src/images/shoes8.png"
   );
   const [selectedBrand, setSelectedBrand] = useState("Nike");
   const brandDefaultImages = {
