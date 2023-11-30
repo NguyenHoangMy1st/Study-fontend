@@ -5,8 +5,13 @@ import "./style-prefix.scss";
 import logo2 from "../../../images/logo2png.png";
 import apiCart from "../../API/apiCart";
 
-export default function Header() {
-  const [cartCount, setCartCount] = useState(0);
+export default function Header({ cartItems = [] }) {
+  console.log(cartItems);
+  const cartItemCount = cartItems?.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
   const dropdownRef = useRef(null);
   const [active, setActive] = useState(false);
   const [auth, setAuth] = useState(null);
@@ -81,7 +86,7 @@ export default function Header() {
             </Link>
             <Link to="/cart" className="action-btn">
               <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-              <span className="count">0</span>
+              <span className="count">{cartItemCount}</span>
             </Link>
           </div>
         </div>
@@ -129,7 +134,7 @@ export default function Header() {
           <Link to="/cart">
             <button className="action-btn">
               <i className="fa fa-shopping-bag" aria-hidden="true"></i>
-              <span className="count">{cartCount}</span>
+              <span className="count">{cartItemCount}</span>
             </button>
           </Link>
           <Link to="/" className="mobile-bottom-navigation-home">

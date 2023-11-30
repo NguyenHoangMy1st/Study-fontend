@@ -8,8 +8,11 @@ import apiProductDetail from "../../components/API/apiProductDetail";
 import apiAddItem from "../../components/API/apiAddItem";
 import CommentCard from "../../components/CommentCard";
 import CommentedShow from "../../components/CommentedShow";
+import { useCart } from "../../contexts/CartContext";
 
 export default function AboutPage({ quantity = 1 }) {
+  const { updateCartItems } = useCart();
+  const { cartItems } = useCart();
   const navigate = useNavigate();
   const [productDetail, setProductDetail] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
@@ -35,6 +38,8 @@ export default function AboutPage({ quantity = 1 }) {
       setIsLoading(true); // Bắt đầu loading
 
       const response = await apiAddItem.putAddItem(formData);
+      // Cập nhật giỏ hàng sau khi thêm sản phẩm
+      updateCartItems();
       toast.success("Thêm sản phẩm vào giỏ thành công");
       setTimeout(() => {
         navigate("/cart");
@@ -84,7 +89,7 @@ export default function AboutPage({ quantity = 1 }) {
 
   return (
     <>
-      <Header />
+      <Header cartItems={cartItems} />
       <div>
         <ToastContainer />
         {isLoading ? (

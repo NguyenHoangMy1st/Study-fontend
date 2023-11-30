@@ -1,96 +1,84 @@
-import React, { useCallback, useEffect, useState } from "react";
+// CartList.js
+import React, { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button";
 import CartCard from "../CartCard";
-import shoes from "../../images/shoes4.png";
-import "./style.scss";
-import apiCart from "../API/apiCart";
-import { toast, ToastContainer } from "react-toastify";
 import apiRemoveCartItems from "../API/apiRemoveCartItems";
+import { toast, ToastContainer } from "react-toastify";
+import {
+  setProducts,
+  setTotalPrice,
+  fetchCart,
+  updateCartItem,
+} from "../../store/actions/cartActions";
 import { message } from "antd";
 
-export default function CartList({ onDelete = () => {} }) {
-  const [products, setProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+import "./style.scss";
+
+const CartList = () => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state?.cart?.cartItems);
   console.log(products);
-
-  // API cart
+  const totalPrice = useSelector(
+    (state) => state?.cart?.cartItems?.totalDiscountedPrice
+  );
   useEffect(() => {
-    const fetchCarts = async () => {
-      try {
-        const response = await apiCart.getAllCart();
-        setProducts(response.data);
-      } catch (error) {
-        toast.error(error?.message);
-      }
-    };
+    dispatch(fetchCart());
+  }, [dispatch]);
 
-    // Gọi hàm fetchCarts
-    fetchCarts();
-  }, []);
-
-  const handleIncreaseQuantity = (productId) => {
-    // Tìm sản phẩm cần tăng số lượng
-    // console.log(products);
-    const updatedProducts = products?.product?.map((product) =>
-      product.id === productId
-        ? { ...product, quantity: product.quantity + 1 }
-        : product
-    );
-
-    // Cập nhật danh sách sản phẩm
-    setProducts(updatedProducts);
-  };
-
-  const handleDeCreaseQuantity = (productId) => {
-    // Tìm sản phẩm cần giảm số lượng
-    const updatedProducts = products.map((product) =>
-      product.id === productId && product.quantity > 1
-        ? { ...product, quantity: product.quantity - 1 }
-        : product
-    );
-
-    // Cập nhật danh sách sản phẩm
-    setProducts(updatedProducts);
-  };
-
+  const handleIncreaseQuantity = () => {};
+  const handleDecreaseQuantity = () => {};
   const handleDeleteProduct = async (productId) => {
-    console.log("Deleting product with ID:", productId);
     try {
       const response = await apiRemoveCartItems.delRemoveCartItems(productId);
-      console.log(response);
       if (response) {
         const updatedProducts = products.filter(
           (product) => product?.id !== productId
         );
-        setProducts(updatedProducts);
-
-        handleTotal();
-        toast.succes("Xóa sản phẩm thành công");
+        dispatch(setProducts(updatedProducts));
+        toast.success("Xóa sản phẩm thành công");
       } else {
-        console.error("Xóa sản phẩm thất bại");
+        toast.error("Xóa sản phẩm thất bại");
       }
     } catch (error) {
       toast.error(message);
     }
-    window.location.reload();
+  };
+
+  const handleDeleteAllProducts = async () => {
+    try {
+      // Iterate through all cart items and delete them one by one
+      for (const product of products.cartItems) {
+        await apiRemoveCartItems.delRemoveCartItems(product.id);
+      }
+
+      // After all items are deleted, update the state
+      dispatch(setProducts({ ...products, cartItems: [] }));
+
+      toast.success("Xóa tất cả sản phẩm thành công");
+    } catch (error) {
+      toast.error("Có lỗi khi xóa tất cả sản phẩm");
+    }
   };
 
   const handleTotal = useCallback(() => {
-    // Tính tổng giá trị của sản phẩm trong giỏ hàng
-    const total = products?.cartItems?.reduce((acc, product) => {
+    // Use array destructuring to get the cartItems array directly
+    const { cartItems } = products || { cartItems: [] };
+
+    // Use reduce directly on the cartItems array
+    const total = cartItems?.reduce((acc, product) => {
       return acc + product.priceSale * product.quantity;
     }, 0);
 
     // Cập nhật state với tổng giá trị mới
-    setTotalPrice(total);
-  }, [products]);
+    dispatch(setTotalPrice(total));
+  }, [dispatch, products]);
 
   useEffect(() => {
     // Gọi hàm handleTotal mỗi khi danh sách sản phẩm thay đổi
     handleTotal();
   }, [handleTotal, products]);
-  // console.log("Total Price:", totalPrice); // Thêm dòng này để debug
 
   return (
     <>
@@ -112,17 +100,15 @@ export default function CartList({ onDelete = () => {} }) {
 
         {/* Danh sách sản phẩm  */}
         {products?.cartItems?.length > 0 &&
-          products?.cartItems.map((product) => {
-            return (
-              <CartCard
-                key={product?.id}
-                product={product}
-                onDelete={() => handleDeleteProduct(product.id)}
-                onIncreaseQuantity={() => handleIncreaseQuantity(product.id)}
-                onDeCreaseQuantity={() => handleDeCreaseQuantity(product.id)}
-              />
-            );
-          })}
+          products?.cartItems.map((product) => (
+            <CartCard
+              key={product?.id}
+              product={product}
+              onDelete={() => handleDeleteProduct(product.id)}
+              onIncreaseQuantity={() => handleIncreaseQuantity(product.id)}
+              onDeCreaseQuantity={() => handleDecreaseQuantity(product.id)}
+            />
+          ))}
       </div>
       <div className="payment">
         <div className="payment-voucher">
@@ -134,10 +120,15 @@ export default function CartList({ onDelete = () => {} }) {
         </div>
         <div className="payment-detail">
           <button className="payment-detail-btnall">Select all</button>
-          <button className="payment-detail-btndelete">Delete</button>
+          <button
+            className="payment-detail-btndelete"
+            onClick={handleDeleteAllProducts}
+          >
+            Delete
+          </button>
           <div className="payment-content">
             <label>The Total Amount</label>
-            <label>{products?.totalDiscountedPrice + " "}VND</label>
+            <label>{totalPrice + " "}VND</label>
           </div>
         </div>
         <div className="payment-btn">
@@ -150,4 +141,6 @@ export default function CartList({ onDelete = () => {} }) {
       </div>
     </>
   );
-}
+};
+
+export default CartList;

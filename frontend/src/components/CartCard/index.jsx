@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import "./style.scss";
 export default function CartCard({
   product,
-  // onIncreaseQuantity,
-  // onDeCreaseQuantity,
+  onIncreaseQuantity,
+  onDeCreaseQuantity,
   onDelete,
 }) {
   const [quantityDefault, setQuantityDefault] = useState(product?.quantity);
   const [quantityNew, setQuantityNew] = useState(quantityDefault);
-  console.log(quantityNew);
+  // console.log(quantityNew);
   // console.log(quantityDefault);
   const hexColorCode = product?.product.color;
   const colorName = chroma(hexColorCode).name();
@@ -25,6 +25,7 @@ export default function CartCard({
       const newQuantity = quantityDefault - 1;
       setQuantityDefault(newQuantity);
       setQuantityNew(newQuantity);
+      onDeCreaseQuantity();
     }
   };
 
@@ -32,13 +33,14 @@ export default function CartCard({
     const newQuantity = quantityDefault + 1;
     setQuantityDefault(newQuantity);
     setQuantityNew(newQuantity);
+    onIncreaseQuantity();
   };
   const handleDelete = () => {
     onDelete();
   };
   const handleUpdate = () => {
     // Use quantityNew here for the updated value
-    console.log("Updated Quantity:", quantityNew);
+    // console.log("Updated Quantity:", quantityNew);
   };
   return (
     <>

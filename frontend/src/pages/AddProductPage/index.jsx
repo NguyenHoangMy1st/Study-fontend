@@ -5,8 +5,10 @@ import Header from "../../components/Layout/Header";
 import "./style.scss";
 import Button from "../../components/Button";
 import apiAddProduct from "../../components/API/apiAddProduct";
+import { useCart } from "../../contexts/CartContext";
 
 export default function AddProductPage() {
+  const { cartItems } = useCart();
   const [nameProduct, setnameProduct] = useState(
     "GIÀY THỂ THAO REEBOK RIDER V"
   );
@@ -138,7 +140,7 @@ export default function AddProductPage() {
 
   return (
     <>
-      <Header />
+      <Header cartItems={cartItems} />
       <section>
         <div className="add-product container-layout">
           <ToastContainer />
@@ -209,7 +211,7 @@ export default function AddProductPage() {
               >
                 <option value="Nike">Nike</option>
                 <option value="Adidas">Adidas</option>
-                <option value="Converse">Converse</option>
+                <option value="Converse">Converse đang lỗi đừng thêm</option>
                 <option value="Puma">Puma</option>
                 <option value="Alexander Mqueen">Alexander Mqueen</option>
                 <option value="New Balence">New Balence</option>
