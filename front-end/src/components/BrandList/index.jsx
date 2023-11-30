@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BrandCard from "../BrandCard";
-import logo from "../../images/logoNike.png";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation, Mousewheel, Keyboard } from "swiper/modules";
 import "./style.scss";
+import apiProductGrid from "../../API/(product)/apiProductGrid";
 
 const breakpointsSwiper = {
   320: {
@@ -28,33 +28,21 @@ const breakpointsSwiper = {
 };
 
 export default function BrandList() {
-  const [isLoading, setIsLoading] = useState([]);
-
+  const [brands, setBrands] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Simulate fetching data
     const fetchData = async () => {
       try {
-        // Simulate a delay for each brand
-        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+        // Simulate a delay
+        const response = await apiProductGrid.getAllProduct();
+        setBrands(response.data.content);
 
-        const brandCards = document.querySelectorAll(".swiper-slide");
-        const loadingStates = Array.from(brandCards).map(() => true);
-
-        setIsLoading(loadingStates);
-
-        await Promise.all(
-          loadingStates.map(async (_, index) => {
-            // Simulate loading data for each BrandCard
-            await delay(2000);
-
-            // Set loading state to false for the corresponding BrandCard
-            setIsLoading((prev) =>
-              prev.map((state, i) => (i === index ? false : state))
-            );
-          })
-        );
+        // Set loading state to false after data is loaded
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setIsLoading(false);
       }
     };
 
@@ -69,8 +57,6 @@ export default function BrandList() {
       <Swiper
         spaceBetween={20}
         slidesPerView={4}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
         breakpoints={breakpointsSwiper}
         cssMode={true}
         navigation={true}
@@ -79,19 +65,24 @@ export default function BrandList() {
         keyboard={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
       >
-        {[...Array(7)].map((_, index) => (
-          <SwiperSlide key={index}>
-            {isLoading[index] ? (
-              // Hiển thị spinner hoặc thông báo loading khi dữ liệu đang được tải
-              <div className="brandCard-loading">
-                <p></p>
-              </div>
-            ) : (
-              // Hiển thị BrandCard khi dữ liệu đã được tải xong
-              <BrandCard image={logo} name={`Brand ${index + 1}`} amount="53" />
-            )}
+        {isLoading ? (
+          <SwiperSlide>
+            {/* Loading state */}
+            <div className="brandCard-loading">
+              <p>Loading...</p>
+            </div>
           </SwiperSlide>
-        ))}
+        ) : (
+          brands.map((brand) => (
+            <SwiperSlide key={brand?.brand?.id}>
+              <BrandCard
+                imageUrl={brand?.brand?.imageUrl}
+                name={brand?.brand?.name}
+                amount="53"
+              />
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </section>
   );

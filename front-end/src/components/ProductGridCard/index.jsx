@@ -46,8 +46,8 @@ const ProductGridCard = ({ product }) => {
           )}
         </div>
         <div className="price-box">
-          <p className="price">${product?.discountedPrice}</p>
-          <p className="deal">${product?.price}</p>
+          <p className="price">{product?.discountedPrice + " "}VND</p>
+          <p className="deal">{product?.price + " "}VND</p>
         </div>
       </div>
     </div>

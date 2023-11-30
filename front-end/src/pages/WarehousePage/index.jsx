@@ -1,6 +1,6 @@
 import Button from "../../components/Button";
-import Header from "../../components/Layout/Header";
-import WarehouseList from "../../components/WarehouseList";
+import Header from "../../app/Layout/Header";
+import WarehouseList from "../../app/(admin)/WarehouseList";
 import "./style.scss";
 export default function WarehousePage() {
   return (

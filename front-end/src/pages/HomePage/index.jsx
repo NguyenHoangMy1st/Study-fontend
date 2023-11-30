@@ -1,5 +1,5 @@
-import Footer from "../../components/Layout/Footer";
-import Header from "../../components/Layout/Header";
+import Footer from "../../app/Layout/Footer";
+import Header from "../../app/Layout/Header";
 import TrendingItem from "../../components/TrendingItem";
 import "./style.scss";
 import ProductFeaturedCard from "../../components/ProductFeaturedCard";

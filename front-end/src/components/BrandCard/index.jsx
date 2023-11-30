@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style-prefix.scss";
 
-export default function BrandCard({ image, name, amount }) {
+export default function BrandCard({ imageUrl, name, amount }) {
   return (
     <div className="category">
       <div className="container-category">
         <div className="category-item-container has-scrollbar">
           <div className="category-item">
             <div className="category-img-box">
-              <img src={image} alt="" className="logo-catogery" width={70} />
+              <img src={imageUrl} alt="" className="logo-catogery" width={70} />
             </div>
             <div className="category-content-box">
               <div className="category-content-flex">

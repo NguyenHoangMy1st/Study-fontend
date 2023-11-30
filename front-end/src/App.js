@@ -1,18 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ForgetPassPage from "./pages/ForgerPassPage";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import AboutPage from "./pages/AboutPage";
-import WarehousePage from "./pages/WarehousePage";
+import AddProductPage from "./app/(admin)/AddProductPage";
+import RegisterPage from "./app/(auth)/RegisterPage";
+import LoginPage from "./app/(auth)/LoginPage";
+import AboutPage from "./components/AboutPage";
 import CartPage from "./pages/CartPage";
-import ServicePage from "./pages/ServicePage";
-import PayPage from "./pages/PayPage";
-import AddProductPage from "./pages/AddProductPage";
-import ProfilePage from "./pages/ProfilePage";
-import "react-toastify/dist/ReactToastify.css";
+import HomePage from "./pages/HomePage";
 import HotTrendPage from "./pages/HotTrendPage";
+import PayPage from "./pages/PayPage";
+import ProductPage from "./pages/ProductPage";
+import ProfilePage from "./pages/ProfilePage";
+import ServicePage from "./pages/ServicePage";
+import UpdateProductPage from "./pages/UpdateProductPage";
+import WarehousePage from "./pages/WarehousePage";
+import ForgetPassPage from "./app/(auth)/ForgerPassPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -30,8 +31,10 @@ function App() {
         <Route path="/service" element={<ServicePage />} />
         <Route path="/pay" element={<PayPage />} />
         <Route path="/addproduct" element={<AddProductPage />} />
+        <Route path="/updateproduct" element={<UpdateProductPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

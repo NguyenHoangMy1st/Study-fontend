@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import shoes from "../../images/shoes3.png";
 import "./style.scss";
-import Button from "../../components/Button";
+import Button from "../Button";
 import { toast } from "react-toastify";
 
 export default function ProductFeaturedCard(product) {
@@ -42,8 +42,8 @@ export default function ProductFeaturedCard(product) {
               Nike
             </Link>
             <div className="product-featured-price">
-              <p className="product-featured-price-real">$12.00</p>
-              <del>$15.00</del>
+              <p className="product-featured-price-real">199 000 VND</p>
+              <del>249 000 VND</del>
             </div>
             <Button text="ADD TO CART" onClick={handleAddtocart}></Button>
             <div className="product-featured-status">

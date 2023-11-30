@@ -1,7 +1,7 @@
 import React from "react";
 import "./style-prefix.scss";
 import trending from "../../images/banner-2.jpg";
-import Button from "../../components/Button";
+import Button from "../Button";
 
 export default function TrendingItem() {
   return (

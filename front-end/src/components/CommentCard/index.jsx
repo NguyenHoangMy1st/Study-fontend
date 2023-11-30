@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import apiCreateReview from "../API/apiReview";
-import Raiting from "../API/Raiting";
+import apiCreateReview from "../../API/(product)/apiCreateReview";
+import Raiting from "../../API/(product)/Raiting";
 import "./style.scss";
 
 export default function CommentCard(productId) {

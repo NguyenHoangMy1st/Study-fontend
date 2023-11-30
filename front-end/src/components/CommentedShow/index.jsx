@@ -4,18 +4,20 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
-import apiProductDetail from "../API/apiProductDetail";
 import "./style.scss";
 import { toast } from "react-toastify";
-import apiReviewDetail from "../API/apiReviewDetail";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Navigation, Mousewheel, Keyboard } from "swiper/modules";
+import apiProductDetail from "../../API/(product)/apiProductDetail";
+import apiReviewDetail from "../../API/(product)/apiReviewDetail";
 
 export default function CommentedShow() {
   const image =
     "https://png.pngtree.com/element_our/20200611/ourlarge/pngtree-doggie-cute-cheap-expression-pack-avatar-image_2251655.jpg";
 
   const [product, setProduct] = useState();
-  const [reviews, setReviews] = useState();
-  console.log(reviews);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Thêm isLoading vào đây
   let id = useParams();
   useEffect(() => {
@@ -64,35 +66,42 @@ export default function CommentedShow() {
           // navigation
           grabCursor={"true"}
           pagination={{ clickable: true }}
+          cssMode={true}
+          navigation={true}
+          mousewheel={true}
+          keyboard={true}
+          modules={[Navigation, Mousewheel, Keyboard]}
           className="pb-[40px]"
         >
-          <SwiperSlide>
-            <div className="bg-[#f8f8f8] review-card p-[10px] rounded-lg">
-              <div className="card-top">
-                <div className="comment-profile">
-                  <div className="comment-profile-image">
-                    <img src={image} alt="123" width={100} height={100} />
-                  </div>
-                  <div className="comment-profile-name">
-                    <strong>My Nguyen Hoang</strong>
-                    <div className="likes">
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+          {reviews.map((review, index) => (
+            <SwiperSlide key={index}>
+              <div className="bg-[#f8f8f8] review-card p-[10px] rounded-lg">
+                <div className="card-top">
+                  <div className="comment-profile">
+                    <div className="comment-profile-image">
+                      <img src={image} alt="123" width={100} height={100} />
+                    </div>
+                    <div className="comment-profile-name">
+                      <strong>My Nguyen Hoang</strong>
+                      <div className="likes">
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                      </div>
+                    </div>
+                    <div className="comment-date">
+                      <span>October 6, 2023</span>
                     </div>
                   </div>
-                  <div className="comment-date">
-                    <span>October 6 ,2023</span>
-                  </div>
+                </div>
+                <div className="card-main">
+                  <p>{review.review}</p>
                 </div>
               </div>
-              <div className="card-main">
-                <p>{reviews?.review}</p>
-              </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>

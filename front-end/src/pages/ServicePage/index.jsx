@@ -1,5 +1,5 @@
-import Header from "../../components/Layout/Header";
-import ServiceCard from "../../components/ServiceCard";
+import Header from "../../app/Layout/Header";
+import ServiceCard from "../../app/(info)/ServiceCard";
 export default function ServicePage() {
   return (
     <>

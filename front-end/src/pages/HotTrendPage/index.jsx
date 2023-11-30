@@ -1,4 +1,4 @@
-import Header from "../../components/Layout/Header";
+import Header from "../../app/Layout/Header";
 import ProductBoxList from "../../components/ProductBoxList";
 import ProductFeaturedCard from "../../components/ProductFeaturedCard";
 
