@@ -5,10 +5,8 @@ import Header from "../../components/Layout/Header";
 import "./style.scss";
 import Button from "../../components/Button";
 import apiAddProduct from "../../components/API/apiAddProduct";
-import { useCart } from "../../contexts/CartContext";
 
 export default function AddProductPage() {
-  const { cartItems } = useCart();
   const [nameProduct, setnameProduct] = useState(
     "GIÀY THỂ THAO REEBOK RIDER V"
   );
@@ -20,7 +18,7 @@ export default function AddProductPage() {
     useState("180000");
   const [discountPersentProduct, setdiscountPersentProduct] = useState("10");
   const [imageProduct, setimageProduct] = useState(
-    "https://raw.githubusercontent.com/NguyenHoangMy1st/Study-fontend/main/frontend/src/images/shoes7.png"
+    "https://raw.githubusercontent.com/NguyenHoangMy1st/Study-fontend/main/front-end/src/images/shoes8.png"
   );
   const [selectedBrand, setSelectedBrand] = useState("Nike");
   const brandDefaultImages = {
@@ -140,7 +138,7 @@ export default function AddProductPage() {
 
   return (
     <>
-      <Header cartItems={cartItems} />
+      <Header />
       <section>
         <div className="add-product container-layout">
           <ToastContainer />
@@ -211,7 +209,7 @@ export default function AddProductPage() {
               >
                 <option value="Nike">Nike</option>
                 <option value="Adidas">Adidas</option>
-                <option value="Converse">Converse đang lỗi đừng thêm</option>
+                <option value="Converse">Converse</option>
                 <option value="Puma">Puma</option>
                 <option value="Alexander Mqueen">Alexander Mqueen</option>
                 <option value="New Balence">New Balence</option>

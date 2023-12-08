@@ -7,7 +7,7 @@ export default function HotTrendPage() {
   const { cartItems } = useCart();
   return (
     <>
-    <Header cartItems={cartItems} />
+      <Header cartItems={cartItems} />
       <ProductFeaturedCard />
       <ProductBoxList />
     </>

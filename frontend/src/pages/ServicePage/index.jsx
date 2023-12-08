@@ -5,7 +5,7 @@ export default function ServicePage() {
   const { cartItems } = useCart();
   return (
     <>
-    <Header cartItems={cartItems} />
+      <Header cartItems={cartItems} />
       <ServiceCard />
     </>
   );
